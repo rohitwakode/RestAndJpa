@@ -26,8 +26,31 @@ public class JobService {
         return jobRepo.save(jobPost);
     }
 
-    public JobPost updateJob(JobPost jobPost){
-        return jobRepo.save(jobPost);
+//    public Employee getEmployeeById(int id) {
+//        return repository.findById(id)
+//                .orElseThrow(()-> new EmployeeNotFoundException("Employee not found"));
+//    }
+
+    public JobPost updateJob(int id, JobPost jobPost) {
+
+        //if not throw exception not found
+        JobPost existingJob = getJobById(id);
+
+        if (jobPost.getPostProfile()!= null && !jobPost.getPostProfile().trim().isEmpty()) {
+            existingJob.setPostProfile(jobPost.getPostProfile());
+        }
+
+        if (jobPost.getPostDesk()!=null && !jobPost.getPostDesk().trim().isEmpty()) {
+            existingJob.setPostDesk(jobPost.getPostDesk());
+        }
+
+        if (jobPost.getReqExperience()!=null) {
+            existingJob.setReqExperience(jobPost.getReqExperience());
+        }
+        if (jobPost.getPostTechStack()!=null&& !jobPost.getPostTechStack().isEmpty()) {
+            existingJob.setPostTechStack(jobPost.getPostTechStack());
+        }
+        return jobRepo.save(existingJob);
     }
 
     public String deleteJob(int id){
@@ -36,9 +59,6 @@ public class JobService {
 
     }
 
-//    public List<JobPost> search(String keyword) {
-//        return jobRepo.findByNameContainingIgnoreCase(keyword);
-//    }
     public String search(String keyword) {
         return keyword;
     }

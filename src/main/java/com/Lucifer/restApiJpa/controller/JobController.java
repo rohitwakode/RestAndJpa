@@ -30,10 +30,9 @@ public class JobController {
          return jobService.getJobById(jobPost.getPostId());
     }
 
-    @PutMapping("/job")
-    public JobPost updateJob(@RequestBody JobPost jobPost){
-        jobService.addJob(jobPost);
-        return jobService.getJobById(jobPost.getPostId());
+    @PutMapping("/job/{id}")
+    public JobPost updateJob(@PathVariable int id,@RequestBody JobPost jobPost){
+        return jobService.updateJob(id, jobPost);
     }
 
     @DeleteMapping("/job")
